@@ -1,5 +1,7 @@
 from django.shortcuts import render
 import openai
+from django.http import HttpResponse
+
 openai.api_key = "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" # 替换为你的API Key
 
 def home(request):
