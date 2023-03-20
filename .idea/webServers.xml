@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e206c1cd-aa5c-4ba2-b491-20dfaec64ed9" name="GPT" url="http://localhost">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../GTPwebsite" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
