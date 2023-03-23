@@ -31,13 +31,13 @@ def generate_text(request):
 
 def generate_response(text):
     prompt = f"User:{text}\nAI:"
-    response = openai.completion.create(
+    response = openai.Completion.create(
         engine="davinci",
         prompt=prompt,
         temperature=0.5,
         max_tokens=1024,
         top_p=1,
-        frequency_peenalty=0,
+        frequency_penalty=0,
         presence_penalty=0
     )
     message = response.choices[0].text.strip()
@@ -46,24 +46,11 @@ def generate_response(text):
 
 def index(request):
     if request.method == 'POST':
-        user = User.objects.get(email=request.POST['email'])
+        user = User.objects.get(email='feijifr@qq.com')
         message = Message(user=user, text=request.POST['message'])
         message.save()
         bot_message = generate_response(request.POST['message'])
-        bot = User.objects.get(email='bot@example.com')
-        bot_message = Message(user=bot, text=bot_message)
-        bot_message.save()
-    else:
-        return render(request, 'index.html')
-
-
-def index(request):
-    if request.method == 'POST':
-        user = User.objects.get(email=request.POST['email'])
-        message = Message(user=user, text=request.POST['message'])
-        message.save()
-        bot_message = generate_response(request.POST['message'])
-        bot = User.objects.get(email='bot@example.com')
+        bot = User.objects.get(email='chatgpt@qq.com')
         bot_message = Message(user=bot, text=bot_message)
         bot_message.save()
     messages = Message.objects.order_by('-created_at')[:10]

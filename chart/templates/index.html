@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         /* CSS样式 */
     </style>
@@ -16,23 +17,51 @@
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-header">
-                    Chatbot
+                    ChatGTP 3.5 API Test
                 </div>
                 <div class="card-body">
-                    <div id="message-container">
-                        <!-- 消息内容 -->
-                    </div>
                     <form id="message-form" method="POST">
                         {% csrf_token %}
+                        <!--
                         <div class="form-group">
                             <input type="email" name="email" class="form-control" placeholder="Email" required>
                         </div>
+                        -->
                         <div class="form-group">
-                            <input type="text" name="message" class="form-control" placeholder="Type your message here"
+                            <input type="text" name="message" class="form-control" placeholder="输入你的问题..."
                                    required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="submit" class="btn btn-primary">发送</button>
                     </form>
+                    <div id="message-container">
+                        <!-- 消息内容 -->
+                        {% for message in messages %}
+                            {% if message.user.email == 'bot@example.com' %}
+                                <div class="card bg-light mb-3">111
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <img src="../static/img/GPT.png" width="30" height="30" class="mr-3" alt="Bot Avatar">
+                                            <div class="media-body">
+                                                <p class="card-text">Bot: {{ message.text }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <img src="../static/img/pp.png" width="30" height="30" class="mr-3" alt="User Avatar">
+                                            <div class="media-body">
+                                                <p class="card-text">You: {{ message.text }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
                 </div>
             </div>
         </div>

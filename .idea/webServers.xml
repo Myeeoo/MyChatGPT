@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="e206c1cd-aa5c-4ba2-b491-20dfaec64ed9" name="GPT" url="http://localhost">
+      <webServer id="e206c1cd-aa5c-4ba2-b491-20dfaec64ed9" name="GPT" url="http://localhost:8000">
         <fileTransfer mountedRoot="$PROJECT_DIR$/../GTPwebsite" accessType="MOUNT" port="0" />
       </webServer>
     </option>
