@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+<<<<<<< HEAD
 
 from chart import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+=======
+from chart import views
+
+urlpatterns = [
+>>>>>>> origin/master
     path('admin/', admin.site.urls),
     path('chart/generate_text/', views.generate_text, name='generate_text'),
 ]
