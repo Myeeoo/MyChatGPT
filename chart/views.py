@@ -1,6 +1,5 @@
-<<<<<<< HEAD
+
 import openai
-from django.shortcuts import render
 
 from .models import User, Message
 
@@ -56,7 +55,8 @@ def index(request):
         bot_message.save()
     messages = Message.objects.order_by('-created_at')[:10]
     return render(request, 'index.html', {'messages': messages})
-=======
+
+
 from django.shortcuts import render
 import openai
 openai.api_key = "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" # 替换为你的API Key
@@ -78,4 +78,3 @@ def generate_text(request):
     generated_text = response.choices[0].text # 从API响应中获取生成的文本
 
     return render(request, 'chart/generate_text.html', {'generated_text': generated_text})
->>>>>>> origin/master
