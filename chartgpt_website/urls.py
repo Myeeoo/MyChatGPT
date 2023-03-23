@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from chart import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('chart/generate_text/', views.generate_text, name='generate_text'),
 ]
