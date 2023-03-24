@@ -20,6 +20,7 @@ from chart import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('Bot', views.indexBOT, name='indexBOT'),
     path('admin/', admin.site.urls),
     path('chart/generate_text/', views.generate_text, name='generate_text'),
 ]

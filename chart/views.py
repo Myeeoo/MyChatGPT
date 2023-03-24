@@ -1,9 +1,44 @@
-
 import openai
+from django.http import JsonResponse
+from django.shortcuts import render
+from transformers import pipeline
 
 from .models import User, Message
 
-openai.api_key = "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"  # 替换为你的API Key
+openai.api_key = "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"  # 替换为你的API Key
+
+
+def chatbot(request):
+    # 加载预训练模型
+    model = pipeline("text-generation", model="gpt2")
+
+    # 获取用户输入
+    user_input = request.GET.get("input")
+
+    # 生成回复消息
+    response = model(user_input, max_length=50, do_sample=True)[0]["generated_text"]
+
+    # 返回回复消息
+    return JsonResponse({"response": response})
+
+
+def indexBOT(request):
+    if request.method == 'POST':
+        text = request.POST['text']
+        prompt = f"User:{text}\nAI:"
+        response = openai.Completion.create(
+            engine="davinci",
+            prompt=prompt,
+            temperature=0.5,
+            max_tokens=1024,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+            stop=["\n", "User:", "AI:"]
+        )
+        message = response.choices[0].text.strip()
+        return JsonResponse({'message': message})
+    return render(request, 'indexBOT.html')
 
 
 def home(request):
@@ -32,13 +67,23 @@ def generate_text(request):
 def generate_response(text):
     prompt = f"User:{text}\nAI:"
     response = openai.Completion.create(
-        engine="davinci",
+        #     davinci: 最强大、最通用的模型，可用于生成各种类型的文本，包括文章、对话、代码等。是OpenAI
+        # API中唯一收费的模型，使用时需要花费相应的API令牌。
+        # curie: 比davinci稍弱，但也可用于生成多种类型的文本。与davinci一样，是OpenAI
+        # API中的高级模型，也需要使用API令牌。
+        # babbage: 面向程序员的模型，可用于自动生成代码和文档。
+        # ada: 面向自然语言处理（NLP）任务的模型，如问答、翻译等。
+        # text - davinci - 002: 与davinci类似，但速度更快、更便宜，可以更好地用于实时应用程序。
+        engine="text-davinci-002",
         prompt=prompt,
-        temperature=0.5,
+        temperature=1,
         max_tokens=1024,
         top_p=1,
         frequency_penalty=0,
-        presence_penalty=0
+        presence_penalty=0,
+        stop=["User:", "AI:"],
+        n=1,
+        ##language="zh-CN"
     )
     message = response.choices[0].text.strip()
     return message
@@ -57,9 +102,6 @@ def index(request):
     return render(request, 'index.html', {'messages': messages})
 
 
-from django.shortcuts import render
-import openai
-openai.api_key = "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" # 替换为你的API Key
 
 def generate_text(request):
     prompt = request.GET.get('prompt') # 获取用户输入的prompt

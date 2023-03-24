@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+    <title>OpenAI Chatbot</title>
 </head>
 <body>
-    <h1>Welcome to my website!</h1>
+<h1>OpenAI Chatbot</h1>
+<pre id="output"></pre>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    let message = 'Hello, world!'
+    let url = 'http://127.0.0.1:8000'
+    let params = {message: message}
+    axios.post(url, params)
+        .then(response => {
+            let output = document.getElementById('output')
+            output.textContent = JSON.stringify(response.data, null, 2)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+</script>
 </body>
 </html>

@@ -36,13 +36,14 @@
                     <div id="message-container">
                         <!-- 消息内容 -->
                         {% for message in messages %}
-                            {% if message.user.email == 'bot@example.com' %}
-                                <div class="card bg-light mb-3">111
+                            {% if message.user.email == 'chatgpt@qq.com' %}
+                                <div class="card bg-light mb-3">
                                     <div class="card-body">
                                         <div class="media">
-                                            <img src="../static/img/GPT.png" width="30" height="30" class="mr-3" alt="Bot Avatar">
+                                            <img src="../static/img/GPT.png" width="30" height="30" class="mr-3"
+                                                 alt="Bot Avatar">
                                             <div class="media-body">
-                                                <p class="card-text">Bot: {{ message.text }}</p>
+                                                <p class="card-text">{{ message.text }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -51,9 +52,10 @@
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <div class="media">
-                                            <img src="../static/img/pp.png" width="30" height="30" class="mr-3" alt="User Avatar">
+                                            <img src="../static/img/pp.png" width="30" height="30" class="mr-3"
+                                                 alt="User Avatar">
                                             <div class="media-body">
-                                                <p class="card-text">You: {{ message.text }}</p>
+                                                <p class="card-text">{{ message.text }}</p>
                                             </div>
                                         </div>
                                     </div>
