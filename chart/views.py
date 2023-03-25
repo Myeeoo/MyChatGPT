@@ -5,8 +5,22 @@ from transformers import pipeline
 
 from .models import User, Message
 
-openai.api_key = "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"  # 替换为你的API Key
+openai.api_key = "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"  # 替换为你的API Key
 
+from .train import train_model
+
+
+def train(request):
+    # 运行训练脚本
+    subprocess.run(['python', 'chart/train.py'], cwd=os.getcwd())
+
+    # 读取训练结果
+    with open('chart/train_result.txt', 'r') as f:
+        train_result = f.read()
+
+    # 渲染模板
+    context = {'train_result': train_result}
+    return render(request, 'chart/train.html', context)
 
 def chatbot(request):
     # 加载预训练模型

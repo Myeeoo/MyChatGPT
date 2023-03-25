@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train Model</title>
+</head>
+<body>
+    <h1>Train Model</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="epochs">Epochs:</label>
+        <input type="number" name="epochs" id="epochs" value="5"><br><br>
+        <label for="lr">Learning Rate:</label>
+        <input type="number" step="0.01" name="lr" id="lr" value="0.001"><br><br>
+        <input type="submit" value="Train Model">
+    </form>
+    {% if result %}
+    <h2>Training Result:</h2>
+    <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>
