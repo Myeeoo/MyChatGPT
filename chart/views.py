@@ -5,7 +5,7 @@ from transformers import pipeline
 
 from .models import User, Message
 
-openai.api_key = "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"  # 替换为你的API Key
+openai.api_key = "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"  # 替换为你的API Key
 
 
 def chatbot(request):
