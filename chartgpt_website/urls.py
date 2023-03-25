@@ -19,6 +19,7 @@ from django.urls import path
 from chart import views
 
 urlpatterns = [
+    path('train',views.train,name="teain"),
     path('', views.index, name='index'),
     path('Bot', views.indexBOT, name='indexBOT'),
     path('admin/', admin.site.urls),

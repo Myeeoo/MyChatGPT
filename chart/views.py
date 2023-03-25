@@ -2,6 +2,12 @@ import openai
 from django.http import JsonResponse
 from django.shortcuts import render
 from transformers import pipeline
+import subprocess
+from django.http import HttpResponse
+import sys
+
+
+from .train import train_model
 
 from .models import User, Message
 
@@ -11,16 +17,16 @@ from .train import train_model
 
 
 def train(request):
-    # 运行训练脚本
-    subprocess.run(['python', 'chart/train.py'], cwd=os.getcwd())
 
-    # 读取训练结果
-    with open('chart/train_result.txt', 'r') as f:
-        train_result = f.read()
+    if request.method == 'POST':
 
-    # 渲染模板
-    context = {'train_result': train_result}
-    return render(request, 'chart/train.html', context)
+        epochs = request.POST['epochs']
+        lr = request.POST['lr']
+        subprocess.run([sys.executable, 'train_model.py', str(epochs), str(lr)])
+        subprocess.Popen(['python3', 'chart/train.py', epochs, lr])
+        return HttpResponse("Training started!")
+    else:
+        return render(request, 'train.html')
 
 def chatbot(request):
     # 加载预训练模型
